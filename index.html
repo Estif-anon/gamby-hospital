@@ -218,6 +218,44 @@
           height: 80px;
         }
       }
+
+      body {
+  background: linear-gradient(135deg, #e0f2ff, #f2f7ff, #dceeff);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.container {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+  padding: 1.5rem;
+}
+/* body {
+  background: url('./assets/images/hospital_bg.jpg') center/cover no-repeat fixed;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(13,110,253,0.15), rgba(0,123,255,0.05), rgba(13,110,253,0.15));
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  z-index: -1;
+} */
     </style>
   </head>
   <body>
@@ -490,7 +528,7 @@
 
     <!-- Footer -->
     <footer class="footer fade-in">
-      <div class="container">
+      <div class="">
         <p class="mb-1">© 2025 Gamby General Hospital. All rights reserved.</p>
         <small>Contact: info@gambyhospital.com | +251-XXX-XXXXXX</small>
       </div>
