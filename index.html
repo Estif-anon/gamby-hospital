@@ -3,19 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <title>Gamby General Hospital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s, transform 0.8s;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
       .scroll-section {
         position: relative;
         overflow: hidden;
       }
-      .scroll-cards, .scroll-doctors {
+      .scroll-cards, .scroll-doctors, .scroll-news {
         display: flex;
         overflow-x: auto;
         scroll-behavior: smooth;
@@ -40,20 +53,39 @@
       .scroll-btn.left { left: 0.5rem; }
       .scroll-btn.right { right: 0.5rem; }
       .doctor-avatar {
-        width: 140px;
-        height: 140px;
+        width: 180px;
+        height: 180px;
         object-fit: cover;
         border-radius: 50%;
-        border: 4px solid #0d6efd;
+        border: 5px solid #0d6efd;
         margin-bottom: 0.5rem;
+        box-shadow: 0 4px 16px rgba(13,110,253,0.12);
+        transition: transform 0.3s;
+      }
+      .doctor-avatar:hover {
+        transform: scale(1.07);
       }
       .sticky-top {
         background: #fff;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       }
       .department-icon {
-        font-size: 3rem;
+        font-size: 3.5rem;
         color: #0d6efd;
+        transition: color 0.3s;
+      }
+      .department-card {
+        background: #f8f9fa;
+        border-radius: 1rem;
+        padding: 2.5rem 1rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        margin: 0.5rem;
+        min-width: 200px;
+        transition: box-shadow 0.3s;
+      }
+      .department-card:hover {
+        box-shadow: 0 6px 24px rgba(13,110,253,0.12);
       }
       .footer {
         background: #0d6efd;
@@ -66,24 +98,88 @@
         background: #0d6efd !important;
         color: #fff !important;
       }
-      .department-card {
-        background: #f8f9fa;
-        border-radius: 1rem;
-        padding: 2rem 1rem;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        margin: 0.5rem;
-        min-width: 170px;
-      }
       .carousel-caption {
         background: rgba(0,0,0,0.4);
         border-radius: 1rem;
         padding: 1rem;
       }
       .carousel-img {
-        height: 350px;
+        height: 500px;
         object-fit: cover;
         width: 100%;
+      }
+      /* News Card */
+      .news-card {
+        display: flex;
+        background: #f8f9fa;
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        min-width: 500px;
+        max-width: 600px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+      }
+      .news-card:hover {
+        box-shadow: 0 6px 24px rgba(13,110,253,0.12);
+      }
+      .news-img {
+        width: 200px;
+        object-fit: cover;
+        height: 100%;
+      }
+      .news-content {
+        padding: 1.5rem;
+        flex: 1;
+      }
+      /* Testimonial & Contact */
+      .testimonial-card {
+        background: #f8f9fa;
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        padding: 2rem;
+        margin-bottom: 1rem;
+        transition: box-shadow 0.3s;
+      }
+      .testimonial-card:hover {
+        box-shadow: 0 6px 24px rgba(13,110,253,0.12);
+      }
+      .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 1rem;
+      }
+      .gradient-form {
+        background: linear-gradient(135deg, #e0eaff 0%, #c1e1fc 100%);
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        padding: 2rem;
+        margin-bottom: 1rem;
+        transition: box-shadow 0.3s;
+      }
+      .gradient-form:hover {
+        box-shadow: 0 6px 24px rgba(13,110,253,0.12);
+      }
+      .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15);
+      }
+      @media (max-width: 1200px) {
+        .doctor-avatar {
+          width: 140px;
+          height: 140px;
+        }
+        .department-card {
+          min-width: 150px;
+          padding: 2rem 0.5rem;
+        }
+        .news-card {
+          min-width: 400px;
+          max-width: 500px;
+        }
+        .news-img {
+          width: 140px;
+        }
       }
       @media (max-width: 768px) {
         .doctor-avatar {
@@ -99,6 +195,27 @@
         }
         .carousel-img {
           height: 180px;
+        }
+        .news-card {
+          min-width: 90vw;
+          max-width: 95vw;
+          flex-direction: column;
+        }
+        .news-img {
+          width: 100%;
+          height: 160px;
+        }
+        .news-content {
+          padding: 1rem;
+        }
+      }
+      @media (max-width: 576px) {
+        .department-card {
+          min-width: 45vw;
+        }
+        .doctor-avatar {
+          width: 80px;
+          height: 80px;
         }
       }
     </style>
@@ -128,7 +245,7 @@
     </nav>
 
     <!-- Hero Carousel -->
-    <div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div id="heroCarousel" class="carousel slide mb-5 fade-in" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img src="./assets/images/slide_1.jpg" class="d-block w-100 carousel-img" alt="Emergency Care">
@@ -163,7 +280,7 @@
     </div>
 
     <!-- Services Section -->
-    <section class="container my-5">
+    <section class="container my-5 fade-in">
       <h2 class="text-center mb-4 fw-bold">Our Services</h2>
       <div class="scroll-section">
         <button class="scroll-btn left" onclick="scrollCards(-1)">
@@ -227,30 +344,30 @@
     </section>
 
     <!-- Departments Section -->
-    <section class="container my-5">
+    <section class="container my-5 fade-in" id="departmentsSection">
       <h2 class="text-center mb-4 fw-bold">Departments</h2>
-      <div class="row justify-content-center">
-        <div class="col-md-2 col-6 department-card">
+      <div class="row justify-content-center" id="departmentsRow">
+        <div class="col-lg-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-heart-pulse"></i></div>
           <h6 class="mt-2 fs-5">Cardiology</h6>
         </div>
-        <div class="col-md-2 col-6 department-card">
+        <div class="col-lg-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-person-badge"></i></div>
           <h6 class="mt-2 fs-5">Pediatrics</h6>
         </div>
-        <div class="col-md-2 col-6 department-card">
+        <div class="col-lg-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-gender-female"></i></div>
           <h6 class="mt-2 fs-5">Gynecology</h6>
         </div>
-        <div class="col-md-2 col-6 department-card">
+        <div class="col-lg-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-hospital"></i></div>
           <h6 class="mt-2 fs-5">Surgery</h6>
         </div>
-        <div class="col-md-2 col-6 department-card">
+        <div class="col-lg-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-thermometer-half"></i></div>
           <h6 class="mt-2 fs-5">Diagnostics</h6>
         </div>
-        <div class="col-md-2 col-6 department-card">
+        <div class="col-lg-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-person"></i></div>
           <h6 class="mt-2 fs-5">General Medicine</h6>
         </div>
@@ -258,66 +375,159 @@
     </section>
 
     <!-- Doctors Section -->
-    <section class="container my-5">
+    <section class="container my-5 fade-in" id="doctorsSection">
       <h2 class="text-center mb-4 fw-bold">Doctors</h2>
       <div class="scroll-section">
         <div class="scroll-doctors" id="doctorsScroll">
           <div class="text-center mx-3">
             <img src="./assets/images/doctor_1.jpg" alt="Doctor 1" class="doctor-avatar" />
-            <div class="fw-semibold fs-5">Dr. Sara Ahmed</div>
-            <div class="text-muted fs-6">Cardiologist</div>
+            <div class="fw-semibold fs-4">Dr. Sara Ahmed</div>
+            <div class="text-muted fs-5">Cardiologist</div>
           </div>
           <div class="text-center mx-3">
             <img src="./assets/images/doctor_2.jpg" alt="Doctor 2" class="doctor-avatar" />
-            <div class="fw-semibold fs-5">Dr. John Smith</div>
-            <div class="text-muted fs-6">Pediatrician</div>
+            <div class="fw-semibold fs-4">Dr. John Smith</div>
+            <div class="text-muted fs-5">Pediatrician</div>
           </div>
           <div class="text-center mx-3">
             <img src="./assets/images/doctor_3.jpg" alt="Doctor 3" class="doctor-avatar" />
-            <div class="fw-semibold fs-5">Dr. Emily Rose</div>
-            <div class="text-muted fs-6">Gynecologist</div>
+            <div class="fw-semibold fs-4">Dr. Emily Rose</div>
+            <div class="text-muted fs-5">Gynecologist</div>
           </div>
           <div class="text-center mx-3">
             <img src="./assets/images/doctor_4.jpg" alt="Doctor 4" class="doctor-avatar" />
-            <div class="fw-semibold fs-5">Dr. Michael Lee</div>
-            <div class="text-muted fs-6">Surgeon</div>
+            <div class="fw-semibold fs-4">Dr. Michael Lee</div>
+            <div class="text-muted fs-5">Surgeon</div>
           </div>
           <div class="text-center mx-3">
             <img src="./assets/images/doctor_5.jpg" alt="Doctor 5" class="doctor-avatar" />
-            <div class="fw-semibold fs-5">Dr. Fatima Yusuf</div>
-            <div class="text-muted fs-6">General Physician</div>
+            <div class="fw-semibold fs-4">Dr. Fatima Yusuf</div>
+            <div class="text-muted fs-5">General Physician</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="container my-5 fade-in">
+      <h2 class="text-center mb-4 fw-bold">News</h2>
+      <div class="scroll-section">
+        <div class="scroll-news" id="newsScroll">
+          <div class="news-card">
+            <div class="news-content">
+              <h5 class="fw-bold">New MRI Machine Installed</h5>
+              <div class="text-muted mb-2">2025-09-20</div>
+              <p>We are excited to announce the installation of a new state-of-the-art MRI machine to improve diagnostics.</p>
+            </div>
+            <img src="./assets/images/service_6.jpg" class="news-img" alt="MRI News">
+          </div>
+          <div class="news-card">
+            <div class="news-content">
+              <h5 class="fw-bold">Free Health Camp</h5>
+              <div class="text-muted mb-2">2025-08-15</div>
+              <p>Join our free health camp for checkups and consultations. Open to all residents.</p>
+            </div>
+            <img src="./assets/images/service_2.jpg" class="news-img" alt="Health Camp">
+          </div>
+          <div class="news-card">
+            <div class="news-content">
+              <h5 class="fw-bold">Blood Donation Drive</h5>
+              <div class="text-muted mb-2">2025-07-10</div>
+              <p>Support our blood donation drive and help save lives. Volunteers welcome!</p>
+            </div>
+            <img src="./assets/images/service_1.jpg" class="news-img" alt="Blood Donation">
+          </div>
+        </div>
+        <button class="scroll-btn left" onclick="scrollNews(-1)">
+          <span class="bi bi-chevron-left">&lt;</span>
+        </button>
+        <button class="scroll-btn right" onclick="scrollNews(1)">
+          <span class="bi bi-chevron-right">&gt;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Testimonial & Contact Section -->
+    <section class="container my-5 fade-in">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6">
+          <div class="testimonial-card h-100 d-flex flex-column justify-content-center">
+            <div class="d-flex align-items-center mb-3">
+              <img src="./assets/images/doctor_2.jpg" alt="Patient" class="testimonial-avatar" />
+              <div>
+                <div class="fw-bold">Amanuel T.</div>
+                <div class="text-muted small">Patient</div>
+              </div>
+            </div>
+            <blockquote class="blockquote mb-0">
+              <p class="mb-2">"The care and attention I received at Gamby General Hospital was exceptional. The staff are truly dedicated."</p>
+              <footer class="blockquote-footer">Visited in August 2025</footer>
+            </blockquote>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="gradient-form h-100">
+            <h5 class="mb-3 fw-bold">Contact Us</h5>
+            <form>
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="3" placeholder="Your message..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary px-4">Send Message</button>
+            </form>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer fade-in">
       <div class="container">
         <p class="mb-1">© 2025 Gamby General Hospital. All rights reserved.</p>
         <small>Contact: info@gambyhospital.com | +251-XXX-XXXXXX</small>
       </div>
     </footer>
 
-    <!-- Bootstrap JS & Icons -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <!-- Custom JS for horizontal scroll and autoscroll -->
+    <!-- Custom JS for horizontal scroll, autoscroll, responsive display, and animation -->
     <script>
+      // Fade-in animation on scroll
+      function showOnScroll() {
+        document.querySelectorAll('.fade-in').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 50) {
+            el.classList.add('visible');
+          }
+        });
+      }
+      window.addEventListener('scroll', showOnScroll);
+      window.addEventListener('DOMContentLoaded', showOnScroll);
+
+      // Services cards scroll
       function scrollCards(direction) {
         const container = document.getElementById('servicesCards');
         const cardWidth = container.querySelector('.card').offsetWidth + 16;
         container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
       }
 
+      // Doctors autoscroll and responsive display
       const doctorsScroll = document.getElementById('doctorsScroll');
       let autoScrollInterval;
       function startAutoScroll() {
         autoScrollInterval = setInterval(() => {
-          doctorsScroll.scrollBy({ left: 160, behavior: 'smooth' });
+          let scrollAmount = window.innerWidth < 768 ? 120 : 200;
+          doctorsScroll.scrollBy({ left: scrollAmount, behavior: 'smooth' });
           if (doctorsScroll.scrollLeft + doctorsScroll.offsetWidth >= doctorsScroll.scrollWidth - 10) {
             doctorsScroll.scrollTo({ left: 0, behavior: 'smooth' });
           }
@@ -329,6 +539,67 @@
       doctorsScroll.addEventListener('mouseenter', stopAutoScroll);
       doctorsScroll.addEventListener('mouseleave', startAutoScroll);
       window.addEventListener('DOMContentLoaded', startAutoScroll);
+
+      // Responsive departments display
+      function updateDepartmentsDisplay() {
+        const row = document.getElementById('departmentsRow');
+        const cards = row.querySelectorAll('.department-card');
+        if (window.innerWidth < 768) {
+          cards.forEach((card, idx) => {
+            card.style.display = idx < 2 ? 'block' : 'none';
+          });
+        } else {
+          cards.forEach(card => card.style.display = 'block');
+        }
+      }
+      window.addEventListener('resize', updateDepartmentsDisplay);
+      window.addEventListener('DOMContentLoaded', updateDepartmentsDisplay);
+
+      // Responsive doctors display
+      function updateDoctorsDisplay() {
+        const container = document.getElementById('doctorsScroll');
+        const cards = container.querySelectorAll('.text-center');
+        if (window.innerWidth < 768) {
+          cards.forEach((card, idx) => {
+            card.style.display = idx < 2 ? 'block' : 'block';
+            card.style.minWidth = '45vw';
+          });
+        } else {
+          cards.forEach(card => {
+            card.style.display = 'block';
+            card.style.minWidth = '200px';
+          });
+        }
+      }
+      window.addEventListener('resize', updateDoctorsDisplay);
+      window.addEventListener('DOMContentLoaded', updateDoctorsDisplay);
+
+      // News cards scroll
+      function scrollNews(direction) {
+        const container = document.getElementById('newsScroll');
+        let card = container.querySelector('.news-card');
+        let cardWidth = card ? card.offsetWidth + 16 : 400;
+        container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+      }
+
+      // Responsive news display
+      function updateNewsDisplay() {
+        const container = document.getElementById('newsScroll');
+        const cards = container.querySelectorAll('.news-card');
+        if (window.innerWidth < 768) {
+          cards.forEach(card => {
+            card.style.minWidth = '90vw';
+            card.style.maxWidth = '95vw';
+          });
+        } else {
+          cards.forEach(card => {
+            card.style.minWidth = '500px';
+            card.style.maxWidth = '600px';
+          });
+        }
+      }
+      window.addEventListener('resize', updateNewsDisplay);
+      window.addEventListener('DOMContentLoaded', updateNewsDisplay);
     </script>
   </body>
 </html>
