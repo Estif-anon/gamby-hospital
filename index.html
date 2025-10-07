@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-  <header>
+<html lang="en">
+  <head>
     <meta charset="UTF-8" />
     <title>Gamby General Hospital</title>
     <link
@@ -9,137 +9,271 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-  </header>
+    <link rel="stylesheet" href="./styles/main.css" />
+    <style>
+      /* Custom styles for horizontal scroll sections */
+      .scroll-section {
+        position: relative;
+        overflow: hidden;
+      }
+      .scroll-cards, .scroll-doctors {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 1rem;
+        padding-bottom: 1rem;
+      }
+      .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        background: #fff;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .scroll-btn.left { left: 0.5rem; }
+      .scroll-btn.right { right: 0.5rem; }
+      .doctor-avatar {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #0d6efd;
+        margin-bottom: 0.5rem;
+      }
+      .sticky-top {
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      .department-icon {
+        font-size: 2rem;
+        color: #0d6efd;
+      }
+      .footer {
+        background: #0d6efd;
+        color: #fff;
+        padding: 2rem 0 1rem 0;
+        text-align: center;
+      }
+      .nav-link.active {
+        font-weight: bold;
+        background: #0d6efd !important;
+        color: #fff !important;
+      }
+      .department-card {
+        background: #f8f9fa;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        margin: 0.5rem;
+      }
+    </style>
+  </head>
   <body>
-    <section class="nav-bar">
+    <!-- Sticky Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
       <div class="container">
-        <header
-          class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
-        >
-          <a
-            href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-          >
-            <img
-              src="./assets/images/gamby_logo.png"
-              alt="gamby_logo"
-              height="40px"
-            />
-            <span class="fs-4">Gamby General Hospital</span>
-          </a>
-          <ul class="nav nav-pills">
-            <li class="nav-item">
-              <a href="#" class="nav-link active" aria-current="page">Home</a>
-            </li>
-            <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Departments</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Staff</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="./assets/images/gamby_logo.png" alt="gamby_logo" height="40" class="me-2" />
+          <span style="font-family: 'Georgia', serif; font-size: 1.5rem;">Gamby General Hospital</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Departments</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Staff</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
           </ul>
-        </header>
-      </div>
-    </section>
-    <!-- hero -->
-    <section>
-      <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#myCarousel"
-            data-bs-slide-to="0"
-            class="active"
-            aria-label="Slide 1"
-            aria-current="true"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#myCarousel"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-            class=""
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#myCarousel"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-            class=""
-          ></button>
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="./assets/images/slide_1.jpg" alt="slider image" height='100%'>
-            <div class="container">
-              <div class="carousel-caption text-start">
-                <h1>Gamby General Hospital</h1>
-                <p class="opacity-75">
-                  Your Health, Our Priority.
-                </p>
-                <p>
-                  <a class="btn btn-lg btn-light" href="#">Book an Appointment</a>
-                </p>
-              </div>
+      </div>
+    </nav>
+
+    <!-- Hero Carousel (already present) -->
+    <!-- ...existing code for carousel... -->
+
+    <!-- Services Section -->
+    <section class="container my-5">
+      <h2 class="text-center mb-4 fw-bold">Our Services</h2>
+      <div class="scroll-section">
+        <button class="scroll-btn left" onclick="scrollCards(-1)">
+          <span class="bi bi-chevron-left">&lt;</span>
+        </button>
+        <div class="scroll-cards" id="servicesCards">
+          <!-- Service Cards -->
+          <div class="card" style="min-width: 18rem;">
+            <img src="./assets/images/service_1.jpg" class="card-img-top" alt="Service 1">
+            <div class="card-body">
+              <h5 class="card-title">Emergency Care</h5>
+              <p class="card-text">24/7 emergency services for urgent medical needs.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
             </div>
           </div>
-          <div class="carousel-item">
-            <img src="./assets/images/slide_2.jpg" alt="hospital floor" >
-            <div class="container">
-              <div class="carousel-caption">
-                <h1>Another example headline.</h1>
-                <p>
-                  Some representative placeholder content for the second slide
-                  of the carousel.
-                </p>
-                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-              </div>
+          <div class="card" style="min-width: 18rem;">
+            <img src="./assets/images/service_2.jpg" class="card-img-top" alt="Service 2">
+            <div class="card-body">
+              <h5 class="card-title">Outpatient Services</h5>
+              <p class="card-text">Comprehensive outpatient care for all ages.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
             </div>
           </div>
-          <div class="carousel-item">
-            <img src="./assets/images/slide_1.jpg" alt="doctor image" >
-            <div class="container">
-              <div class="carousel-caption text-end">
-                <h1>One more for good measure.</h1>
-                <p>
-                  Some representative placeholder content for the third slide of
-                  this carousel.
-                </p>
-                <p>
-                  <a class="btn btn-lg btn-primary" href="#">Browse gallery</a>
-                </p>
-              </div>
+          <div class="card" style="min-width: 18rem;">
+            <img src="./assets/images/service_3.jpg" class="card-img-top" alt="Service 3">
+            <div class="card-body">
+              <h5 class="card-title">Surgery</h5>
+              <p class="card-text">Modern surgical facilities and experienced surgeons.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+          <div class="card" style="min-width: 18rem;">
+            <img src="./assets/images/service_4.jpg" class="card-img-top" alt="Service 4">
+            <div class="card-body">
+              <h5 class="card-title">Maternity Care</h5>
+              <p class="card-text">Safe and comfortable maternity services.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+          <div class="card" style="min-width: 18rem;">
+            <img src="./assets/images/service_5.jpg" class="card-img-top" alt="Service 5">
+            <div class="card-body">
+              <h5 class="card-title">Pediatrics</h5>
+              <p class="card-text">Specialized care for infants, children, and adolescents.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+          <div class="card" style="min-width: 18rem;">
+            <img src="./assets/images/service_6.jpg" class="card-img-top" alt="Service 6">
+            <div class="card-body">
+              <h5 class="card-title">Diagnostics</h5>
+              <p class="card-text">Advanced diagnostic imaging and lab services.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
             </div>
           </div>
         </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#myCarousel"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#myCarousel"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+        <button class="scroll-btn right" onclick="scrollCards(1)">
+          <span class="bi bi-chevron-right">&gt;</span>
         </button>
       </div>
     </section>
-    <!-- services -->
-    <section></section>
-    <!-- departments -->
-    <section></section>
-    <!-- specialists -->
-    <section></section>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+
+    <!-- Departments Section -->
+    <section class="container my-5">
+      <h2 class="text-center mb-4 fw-bold">Departments</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-2 col-6 department-card">
+          <div class="department-icon"><i class="bi bi-heart-pulse"></i></div>
+          <h6 class="mt-2">Cardiology</h6>
+        </div>
+        <div class="col-md-2 col-6 department-card">
+          <div class="department-icon"><i class="bi bi-person-badge"></i></div>
+          <h6 class="mt-2">Pediatrics</h6>
+        </div>
+        <div class="col-md-2 col-6 department-card">
+          <div class="department-icon"><i class="bi bi-gender-female"></i></div>
+          <h6 class="mt-2">Gynecology</h6>
+        </div>
+        <div class="col-md-2 col-6 department-card">
+          <div class="department-icon"><i class="bi bi-hospital"></i></div>
+          <h6 class="mt-2">Surgery</h6>
+        </div>
+        <div class="col-md-2 col-6 department-card">
+          <div class="department-icon"><i class="bi bi-thermometer-half"></i></div>
+          <h6 class="mt-2">Diagnostics</h6>
+        </div>
+        <div class="col-md-2 col-6 department-card">
+          <div class="department-icon"><i class="bi bi-person"></i></div>
+          <h6 class="mt-2">General Medicine</h6>
+        </div>
+      </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="container my-5">
+      <h2 class="text-center mb-4 fw-bold">Doctors</h2>
+      <div class="scroll-section">
+        <div class="scroll-doctors" id="doctorsScroll">
+          <div class="text-center mx-2">
+            <img src="./assets/images/doctor_1.jpg" alt="Doctor 1" class="doctor-avatar" />
+            <div class="fw-semibold">Dr. Sara Ahmed</div>
+            <div class="text-muted">Cardiologist</div>
+          </div>
+          <div class="text-center mx-2">
+            <img src="./assets/images/doctor_2.jpg" alt="Doctor 2" class="doctor-avatar" />
+            <div class="fw-semibold">Dr. John Smith</div>
+            <div class="text-muted">Pediatrician</div>
+          </div>
+          <div class="text-center mx-2">
+            <img src="./assets/images/doctor_3.jpg" alt="Doctor 3" class="doctor-avatar" />
+            <div class="fw-semibold">Dr. Emily Rose</div>
+            <div class="text-muted">Gynecologist</div>
+          </div>
+          <div class="text-center mx-2">
+            <img src="./assets/images/doctor_4.jpg" alt="Doctor 4" class="doctor-avatar" />
+            <div class="fw-semibold">Dr. Michael Lee</div>
+            <div class="text-muted">Surgeon</div>
+          </div>
+          <div class="text-center mx-2">
+            <img src="./assets/images/doctor_5.jpg" alt="Doctor 5" class="doctor-avatar" />
+            <div class="fw-semibold">Dr. Fatima Yusuf</div>
+            <div class="text-muted">General Physician</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p class="mb-1">© 2025 Gamby General Hospital. All rights reserved.</p>
+        <small>Contact: info@gambyhospital.com | +251-XXX-XXXXXX</small>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS & Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- Custom JS for horizontal scroll and autoscroll -->
+    <script>
+      // Services cards scroll
+      function scrollCards(direction) {
+        const container = document.getElementById('servicesCards');
+        const cardWidth = container.querySelector('.card').offsetWidth + 16; // 16px gap
+        container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+      }
+
+      // Doctors autoscroll
+      const doctorsScroll = document.getElementById('doctorsScroll');
+      let autoScrollInterval;
+      function startAutoScroll() {
+        autoScrollInterval = setInterval(() => {
+          doctorsScroll.scrollBy({ left: 120, behavior: 'smooth' });
+          // If reached end, scroll back to start
+          if (doctorsScroll.scrollLeft + doctorsScroll.offsetWidth >= doctorsScroll.scrollWidth - 10) {
+            doctorsScroll.scrollTo({ left: 0, behavior: 'smooth' });
+          }
+        }, 2000);
+      }
+      function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+      }
+      doctorsScroll.addEventListener('mouseenter', stopAutoScroll);
+      doctorsScroll.addEventListener('mouseleave', startAutoScroll);
+      window.addEventListener('DOMContentLoaded', startAutoScroll);
+    </script>
   </body>
 </html>
