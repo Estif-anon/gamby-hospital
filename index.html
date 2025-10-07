@@ -11,7 +11,6 @@
     />
     <link rel="stylesheet" href="./styles/main.css" />
     <style>
-      /* Custom styles for horizontal scroll sections */
       .scroll-section {
         position: relative;
         overflow: hidden;
@@ -41,11 +40,11 @@
       .scroll-btn.left { left: 0.5rem; }
       .scroll-btn.right { right: 0.5rem; }
       .doctor-avatar {
-        width: 100px;
-        height: 100px;
+        width: 140px;
+        height: 140px;
         object-fit: cover;
         border-radius: 50%;
-        border: 3px solid #0d6efd;
+        border: 4px solid #0d6efd;
         margin-bottom: 0.5rem;
       }
       .sticky-top {
@@ -53,7 +52,7 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       }
       .department-icon {
-        font-size: 2rem;
+        font-size: 3rem;
         color: #0d6efd;
       }
       .footer {
@@ -70,10 +69,37 @@
       .department-card {
         background: #f8f9fa;
         border-radius: 1rem;
-        padding: 1.5rem;
+        padding: 2rem 1rem;
         text-align: center;
         box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         margin: 0.5rem;
+        min-width: 170px;
+      }
+      .carousel-caption {
+        background: rgba(0,0,0,0.4);
+        border-radius: 1rem;
+        padding: 1rem;
+      }
+      .carousel-img {
+        height: 350px;
+        object-fit: cover;
+        width: 100%;
+      }
+      @media (max-width: 768px) {
+        .doctor-avatar {
+          width: 100px;
+          height: 100px;
+        }
+        .department-icon {
+          font-size: 2rem;
+        }
+        .department-card {
+          padding: 1rem 0.5rem;
+          min-width: 120px;
+        }
+        .carousel-img {
+          height: 180px;
+        }
       }
     </style>
   </head>
@@ -101,8 +127,40 @@
       </div>
     </nav>
 
-    <!-- Hero Carousel (already present) -->
-    <!-- ...existing code for carousel... -->
+    <!-- Hero Carousel -->
+    <div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="./assets/images/slide_1.jpg" class="d-block w-100 carousel-img" alt="Emergency Care">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Welcome to Gamby General Hospital</h3>
+            <p>Compassionate care, advanced medicine, close to home.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/images/slide_3.jpg" class="d-block w-100 carousel-img" alt="Maternity Care">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Modern Facilities</h3>
+            <p>State-of-the-art equipment and comfortable environment.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/images/slide_2.jpg" class="d-block w-100 carousel-img" alt="Diagnostics">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Expert Staff</h3>
+            <p>Our doctors and nurses are here for you 24/7.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
 
     <!-- Services Section -->
     <section class="container my-5">
@@ -174,27 +232,27 @@
       <div class="row justify-content-center">
         <div class="col-md-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-heart-pulse"></i></div>
-          <h6 class="mt-2">Cardiology</h6>
+          <h6 class="mt-2 fs-5">Cardiology</h6>
         </div>
         <div class="col-md-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-person-badge"></i></div>
-          <h6 class="mt-2">Pediatrics</h6>
+          <h6 class="mt-2 fs-5">Pediatrics</h6>
         </div>
         <div class="col-md-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-gender-female"></i></div>
-          <h6 class="mt-2">Gynecology</h6>
+          <h6 class="mt-2 fs-5">Gynecology</h6>
         </div>
         <div class="col-md-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-hospital"></i></div>
-          <h6 class="mt-2">Surgery</h6>
+          <h6 class="mt-2 fs-5">Surgery</h6>
         </div>
         <div class="col-md-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-thermometer-half"></i></div>
-          <h6 class="mt-2">Diagnostics</h6>
+          <h6 class="mt-2 fs-5">Diagnostics</h6>
         </div>
         <div class="col-md-2 col-6 department-card">
           <div class="department-icon"><i class="bi bi-person"></i></div>
-          <h6 class="mt-2">General Medicine</h6>
+          <h6 class="mt-2 fs-5">General Medicine</h6>
         </div>
       </div>
     </section>
@@ -204,30 +262,30 @@
       <h2 class="text-center mb-4 fw-bold">Doctors</h2>
       <div class="scroll-section">
         <div class="scroll-doctors" id="doctorsScroll">
-          <div class="text-center mx-2">
+          <div class="text-center mx-3">
             <img src="./assets/images/doctor_1.jpg" alt="Doctor 1" class="doctor-avatar" />
-            <div class="fw-semibold">Dr. Sara Ahmed</div>
-            <div class="text-muted">Cardiologist</div>
+            <div class="fw-semibold fs-5">Dr. Sara Ahmed</div>
+            <div class="text-muted fs-6">Cardiologist</div>
           </div>
-          <div class="text-center mx-2">
+          <div class="text-center mx-3">
             <img src="./assets/images/doctor_2.jpg" alt="Doctor 2" class="doctor-avatar" />
-            <div class="fw-semibold">Dr. John Smith</div>
-            <div class="text-muted">Pediatrician</div>
+            <div class="fw-semibold fs-5">Dr. John Smith</div>
+            <div class="text-muted fs-6">Pediatrician</div>
           </div>
-          <div class="text-center mx-2">
+          <div class="text-center mx-3">
             <img src="./assets/images/doctor_3.jpg" alt="Doctor 3" class="doctor-avatar" />
-            <div class="fw-semibold">Dr. Emily Rose</div>
-            <div class="text-muted">Gynecologist</div>
+            <div class="fw-semibold fs-5">Dr. Emily Rose</div>
+            <div class="text-muted fs-6">Gynecologist</div>
           </div>
-          <div class="text-center mx-2">
+          <div class="text-center mx-3">
             <img src="./assets/images/doctor_4.jpg" alt="Doctor 4" class="doctor-avatar" />
-            <div class="fw-semibold">Dr. Michael Lee</div>
-            <div class="text-muted">Surgeon</div>
+            <div class="fw-semibold fs-5">Dr. Michael Lee</div>
+            <div class="text-muted fs-6">Surgeon</div>
           </div>
-          <div class="text-center mx-2">
+          <div class="text-center mx-3">
             <img src="./assets/images/doctor_5.jpg" alt="Doctor 5" class="doctor-avatar" />
-            <div class="fw-semibold">Dr. Fatima Yusuf</div>
-            <div class="text-muted">General Physician</div>
+            <div class="fw-semibold fs-5">Dr. Fatima Yusuf</div>
+            <div class="text-muted fs-6">General Physician</div>
           </div>
         </div>
       </div>
@@ -249,20 +307,17 @@
 
     <!-- Custom JS for horizontal scroll and autoscroll -->
     <script>
-      // Services cards scroll
       function scrollCards(direction) {
         const container = document.getElementById('servicesCards');
-        const cardWidth = container.querySelector('.card').offsetWidth + 16; // 16px gap
+        const cardWidth = container.querySelector('.card').offsetWidth + 16;
         container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
       }
 
-      // Doctors autoscroll
       const doctorsScroll = document.getElementById('doctorsScroll');
       let autoScrollInterval;
       function startAutoScroll() {
         autoScrollInterval = setInterval(() => {
-          doctorsScroll.scrollBy({ left: 120, behavior: 'smooth' });
-          // If reached end, scroll back to start
+          doctorsScroll.scrollBy({ left: 160, behavior: 'smooth' });
           if (doctorsScroll.scrollLeft + doctorsScroll.offsetWidth >= doctorsScroll.scrollWidth - 10) {
             doctorsScroll.scrollTo({ left: 0, behavior: 'smooth' });
           }
