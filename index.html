@@ -62,6 +62,29 @@
       .scroll-btn.right {
         right: 0.5rem;
       }
+      .doctor-card {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(13, 110, 253, 0.08);
+        padding: 1.5rem 1rem 1rem 1rem;
+        min-width: 220px;
+        max-width: 220px;
+        transition: box-shadow 0.3s, transform 0.3s;
+        position: relative;
+        z-index: 1;
+        opacity: 0.9;
+        border: none;
+      }
+      .doctor-card.middle {
+        /* Remove special styling for middle card */
+        min-width: 220px;
+        max-width: 220px;
+        box-shadow: 0 2px 8px rgba(13, 110, 253, 0.08);
+        transform: none;
+        z-index: 1;
+        border: none;
+        opacity: 0.9;
+      }
       .doctor-avatar {
         width: 180px;
         height: 180px;
@@ -332,7 +355,7 @@ body::before {
       <div class="container" style="background: #0d6efd">
         <a class="navbar-brand d-flex align-items-center" href="#">
           <img
-            src="./assets/images/gamby_logo.png"
+            src="./assets/images/gamby-logo.png"
             alt="gamby_logo"
             height="40"
             class="me-2"
@@ -466,7 +489,7 @@ body::before {
           </div>
           <div class="card" style="min-width: 18rem">
             <img
-              src="./assets/images/service_3.jpg"
+              src="./assets/images/surgery_service.jpg"
               class="card-img-top"
               alt="Service 3"
             />
@@ -597,12 +620,12 @@ body::before {
             <div class="text-muted fs-5">Gynecologist</div>
           </div>
           <div class="doctor-card text-center mx-3">
-            <img src="./assets/images/doctor_4.jpg" alt="Doctor 4" class="doctor-avatar" />
+            <img src="./assets/images/doctor_2.jpg" alt="Doctor 4" class="doctor-avatar" />
             <div class="fw-semibold fs-4">Dr. Michael Lee</div>
             <div class="text-muted fs-5">Surgeon</div>
           </div>
           <div class="doctor-card text-center mx-3">
-            <img src="./assets/images/doctor_5.jpg" alt="Doctor 5" class="doctor-avatar" />
+            <img src="./assets/images/doctor_3.jpg" alt="Doctor 5" class="doctor-avatar" />
             <div class="fw-semibold fs-4">Dr. Fatima Yusuf</div>
             <div class="text-muted fs-5">General Physician</div>
           </div>
@@ -782,171 +805,56 @@ body::before {
         container.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
       }
 
-      // Doctors autoscroll and responsive display
-      var doctorsScroll = document.getElementById("doctorsScroll");
-      let autoScrollInterval;
-      function startAutoScroll() {
-        autoScrollInterval = setInterval(() => {
-          let scrollAmount = window.innerWidth < 768 ? 120 : 200;
-          doctorsScroll.scrollBy({ left: scrollAmount, behavior: "smooth" });
-          if (
-            doctorsScroll.scrollLeft + doctorsScroll.offsetWidth >=
-            doctorsScroll.scrollWidth - 10
-          ) {
-            doctorsScroll.scrollTo({ left: 0, behavior: "smooth" });
-          }
-        }, 2000);
-      }
-      function stopAutoScroll() {
-        clearInterval(autoScrollInterval);
-      }
-      doctorsScroll.addEventListener("mouseenter", stopAutoScroll);
-      doctorsScroll.addEventListener("mouseleave", startAutoScroll);
-      window.addEventListener("DOMContentLoaded", startAutoScroll);
-      
-      // Doctors carousel loop and focus middle
-      doctorsScroll = document.getElementById("doctorsScroll");
-      doctorCards = Array.from(doctorsScroll.children);
-      doctorIndex = 0;
-      doctorLoopInterval;
+
+      // Doctors carousel loop and autoscroll
+      const doctorsScroll = document.getElementById("doctorsScroll");
+      let doctorCards = Array.from(doctorsScroll.children);
+      let doctorLoopInterval;
 
       function updateDoctorCards() {
         doctorCards.forEach((card) => {
           card.classList.remove("middle");
-          card.style.opacity = "0.7";
+          card.style.opacity = "0.9";
           card.style.zIndex = "1";
         });
         // Focus the middle card in the visible area
         let visibleCount = window.innerWidth < 768 ? 2 : 3;
-        let middleIdx = Math.floor(doctorCards.length / 2);
-        doctorCards[middleIdx].classList.add("middle");
-        doctorCards[middleIdx].style.opacity = "1";
-        doctorCards[middleIdx].style.zIndex = "2";
+        let middleIdx = Math.floor((visibleCount / 2) + 1);
+        if (doctorCards[middleIdx]) {
+          doctorCards[middleIdx].classList.add("middle");
+          doctorCards[middleIdx].style.opacity = "1";
+          doctorCards[middleIdx].style.zIndex = "2";
+        }
       }
 
       function loopDoctors() {
         doctorsScroll.appendChild(doctorCards[0]);
         doctorCards.push(doctorCards.shift());
         updateDoctorCards();
+        const cardWidth = doctorCards[0].offsetWidth + 16;
+        doctorsScroll.scrollBy({ left: cardWidth, behavior: "smooth" });
+        // If scrolled too far, reset scrollLeft to show cards seamlessly
+        if (doctorsScroll.scrollLeft > cardWidth * doctorCards.length) {
+          doctorsScroll.scrollLeft = 0;
+        }
       }
 
       function startDoctorLoop() {
         updateDoctorCards();
+        if (doctorLoopInterval) clearInterval(doctorLoopInterval);
         doctorLoopInterval = setInterval(loopDoctors, 2200);
       }
       function stopDoctorLoop() {
-        clearInterval(doctorLoopInterval);
+        if (doctorLoopInterval) clearInterval(doctorLoopInterval);
       }
       doctorsScroll.addEventListener("mouseenter", stopDoctorLoop);
       doctorsScroll.addEventListener("mouseleave", startDoctorLoop);
       window.addEventListener("DOMContentLoaded", startDoctorLoop);
 
-      // Responsive departments display
-      function updateDepartmentsDisplay() {
-        const row = document.getElementById("departmentsRow");
-        const cards = row.querySelectorAll(".department-card");
-        if (window.innerWidth < 768) {
-          cards.forEach((card, idx) => {
-            card.style.display = idx < 2 ? "block" : "none";
-          });
-        } else {
-          cards.forEach((card) => (card.style.display = "block"));
-        }
-      }
-      window.addEventListener("resize", updateDepartmentsDisplay);
-      window.addEventListener("DOMContentLoaded", updateDepartmentsDisplay);
-
-      // Responsive doctors display
+      // Make doctors section always scrollable horizontally
       function updateDoctorsDisplay() {
-        const container = document.getElementById("doctorsScroll");
-        const cards = container.querySelectorAll(".doctor-card");
-        if (window.innerWidth < 768) {
-          cards.forEach((card, idx) => {
-            card.style.display = idx < 2 ? "block" : "block";
-            card.style.minWidth = "45vw";
-          });
-        } else {
-          cards.forEach((card) => {
-            card.style.display = "block";
-            card.style.minWidth = "200px";
-          });
-        }
-      }
-      window.addEventListener("resize", updateDoctorsDisplay);
-      window.addEventListener("DOMContentLoaded", updateDoctorsDisplay);
-
-      // News cards scroll
-      function scrollNews(direction) {
-        const container = document.getElementById("newsScroll");
-        let card = container.querySelector(".news-card");
-        let cardWidth = card ? card.offsetWidth + 16 : 400;
-        container.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
-      }
-
-      // Responsive news display
-      function updateNewsDisplay() {
-        const container = document.getElementById("newsScroll");
-        const cards = container.querySelectorAll(".news-card");
-        if (window.innerWidth < 768) {
-          cards.forEach((card) => {
-            card.style.minWidth = "90vw";
-            card.style.maxWidth = "95vw";
-          });
-        } else {
-          cards.forEach((card) => {
-            card.style.minWidth = "500px";
-            card.style.maxWidth = "600px";
-          });
-        }
-      }
-      window.addEventListener("resize", updateNewsDisplay);
-      window.addEventListener("DOMContentLoaded", updateNewsDisplay);
-
-      // Doctors carousel loop
-      var doctorsScroll = document.getElementById("doctorsScroll");
-      let doctorCards = Array.from(doctorsScroll.children);
-      let doctorIndex = 0;
-      let doctorLoopInterval;
-
-      function updateDoctorCards() {
-        doctorCards.forEach((card, idx) => {
-          card.classList.remove("middle");
-          card.style.opacity = "0.7";
-          card.style.zIndex = "1";
-        });
-        // Find the middle card (center of visible area)
-        let visibleCount = window.innerWidth < 768 ? 2 : 3;
-        let middle = doctorIndex + Math.floor(visibleCount / 2);
-        let realMiddle = middle % doctorCards.length;
-        doctorCards[realMiddle].classList.add("middle");
-        doctorCards[realMiddle].style.opacity = "1";
-        doctorCards[realMiddle].style.zIndex = "2";
-      }
-
-      function loopDoctors() {
-        doctorIndex = (doctorIndex + 1) % doctorCards.length;
-        doctorsScroll.appendChild(doctorCards[0]);
-        doctorCards.push(doctorCards.shift());
-        updateDoctorCards();
-      }
-
-      function startDoctorLoop() {
-        updateDoctorCards();
-        doctorLoopInterval = setInterval(loopDoctors, 2200);
-      }
-      function stopDoctorLoop() {
-        clearInterval(doctorLoopInterval);
-      }
-      doctorsScroll.addEventListener("mouseenter", stopDoctorLoop);
-      doctorsScroll.addEventListener("mouseleave", startDoctorLoop);
-      window.addEventListener("DOMContentLoaded", startDoctorLoop);
-
-      // Responsive doctors display (show only 2 on mobile)
-      function updateDoctorsDisplay() {
-        let visibleCount = window.innerWidth < 768 ? 2 : doctorCards.length;
-        doctorCards.forEach((card, idx) => {
-          card.style.display = idx < visibleCount ? "block" : "block";
-        });
+        doctorCards = Array.from(doctorsScroll.children);
+        doctorsScroll.style.overflowX = "auto";
         updateDoctorCards();
       }
       window.addEventListener("resize", updateDoctorsDisplay);
